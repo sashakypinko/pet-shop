@@ -36,47 +36,38 @@ const ProductList = ({ categoryId, discounted, limit, withoutFiler }: Props): Re
   }, []);
 
   const preparedProducts: IProduct[] = useMemo(() => {
-    // eslint-disable-next-line camelcase
-    return products
-      .filter((product) => {
-        let keep = true;
+    const { price, sort, discounted: filterDiscounted } = filter;
+    const fromPrice = price?.from ? parseInt(price.from) : null;
+    const toPrice = price?.to ? parseInt(price.to) : null;
 
-        if (discounted || filter.discounted) {
-          // eslint-disable-next-line camelcase
-          keep = !!product.discont_price;
-        }
+    const filteredProducts = products.filter((product) => {
+      if ((discounted || filterDiscounted) && !product.discont_price) {
+        return false;
+      }
 
-        if (filter.price?.from) {
-          keep = product.price >= parseInt(filter.price.from);
-        }
+      if (fromPrice !== null && product.price < fromPrice) {
+        return false;
+      }
 
-        if (filter.price?.to) {
-          keep = product.price <= parseInt(filter.price.to);
-        }
+      if (toPrice !== null && product.price > toPrice) {
+        return false;
+      }
 
-        if (categoryId) {
-          keep = product.categoryId === categoryId;
-        }
+      return !(categoryId && product.categoryId !== categoryId);
+    });
 
-        return keep;
-      })
-      .sort((a, b) => {
-        if (filter.sort === SortOptionsEnum.NEWEST) {
-          return 0;
-        }
+    const sortMap: { [key in SortOptionsEnum]: (a: IProduct, b: IProduct) => number } = {
+      [SortOptionsEnum.DEFAULT]: () => 0,
+      [SortOptionsEnum.NEWEST]: (a, b) => a.id - b.id,
+      [SortOptionsEnum.PRICE_HIGH_TO_LOW]: (a, b) => b.discont_price || b.price - a.price,
+      [SortOptionsEnum.PRICE_LOW_TO_HIGH]: (a, b) => a.price - b.price,
+    };
 
-        if (filter.sort === SortOptionsEnum.PRICE_HIGH_TO_LOW) {
-          return a.price < b.price ? 1 : -1;
-        }
+    const sortedProducts = filteredProducts.sort(sortMap[sort] || (() => 0));
 
-        if (filter.sort === SortOptionsEnum.PRICE_LOW_TO_HIGH) {
-          return a.price > b.price ? 1 : -1;
-        }
+    return sortedProducts.slice(0, limit);
+  }, [products, filter, categoryId, discounted, limit]);
 
-        return 0;
-      })
-      .slice(0, limit);
-  }, [products, filter]);
 
   const handleAddToCard = (product: IProduct) => {
     dispatch(

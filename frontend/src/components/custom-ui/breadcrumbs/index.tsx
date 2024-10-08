@@ -4,6 +4,9 @@ import { BreadcrumbLinkProps } from './types';
 import BreadcrumbLink from './breadcrumb-link';
 
 const StyledBreadcrumbs = styled(MuiBreadcrumbs)({
+  '& .MuiBreadcrumbs-ol': {
+    minHeight: 40,
+  },
   '& .MuiBreadcrumbs-separator': {
     margin: '0 !important',
   },

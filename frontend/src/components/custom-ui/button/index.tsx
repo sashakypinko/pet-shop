@@ -3,7 +3,7 @@ import { Button as MuiButton, CircularProgress, styled, Typography } from '@mui/
 import { ButtonProps } from '@mui/material/Button/Button';
 
 const StyledButton = styled(MuiButton)(() => ({
-  padding: '12px 32px',
+  padding: '12px 64px',
   boxShadow: 'none',
   fontSize: 20,
   fontWeight: 600,

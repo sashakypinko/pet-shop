@@ -15,6 +15,12 @@ const StyledLink = styled(Link)<StyledLinkProps>(({ theme, disabled }) => ({
   padding: '4px 16px',
   color: theme.palette.text[disabled ? 'primary' : 'secondary'],
   textDecoration: 'none',
+  transition: 'all 0.25s ease-in-out',
+
+  '&:hover': {
+    fontSize: 17,
+    padding: '6px 20px',
+  },
 }));
 
 const BreadcrumbLink = ({ label, url = '', disabled }: BreadcrumbLinkProps): ReactElement => {
