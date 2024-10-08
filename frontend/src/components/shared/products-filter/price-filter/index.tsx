@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEvent, ReactElement, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { PriceFilter as PriceFilterType } from '../types';
-import TextField from '../../../custom-ui/text-field';
+import Input from '../../../custom-ui/input';
 
 interface Props {
   value?: PriceFilterType;
@@ -30,7 +30,7 @@ const PriceFilter = ({ value = { from: '', to: '' }, onChange }: Props): ReactEl
       <Typography variant="subtitle1" fontWeight={600}>
         Price
       </Typography>
-      <TextField
+      <Input
         type="number"
         label="from"
         value={priceRange.from}
@@ -38,7 +38,7 @@ const PriceFilter = ({ value = { from: '', to: '' }, onChange }: Props): ReactEl
         onBlur={handleApply}
         onKeyDown={handleKeyDown}
       />
-      <TextField
+      <Input
         type="number"
         label="to"
         value={priceRange.to}

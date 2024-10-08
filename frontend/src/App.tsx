@@ -14,6 +14,7 @@ import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat/700.css';
 import {getCartItems} from './store/cart/slice';
+import SnackbarProvider from './components/custom-ui/snackbar';
 
 const App = (): ReactElement => {
   const {colorMode, currentTheme} = useColorMode();
@@ -26,14 +27,16 @@ const App = (): ReactElement => {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={currentTheme}>
-        <CssBaseline/>
-        <Router>
-          <Header/>
-          <Container maxWidth="xl">
-            <Routes/>
-          </Container>
-          <Footer/>
-        </Router>
+        <SnackbarProvider>
+          <CssBaseline/>
+          <Router>
+            <Header/>
+            <Container maxWidth="xl">
+              <Routes/>
+            </Container>
+            <Footer/>
+          </Router>
+        </SnackbarProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

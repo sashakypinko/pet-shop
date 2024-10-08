@@ -1,7 +1,9 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../../../../store/selectors';
 import { Box, styled, Typography, useTheme } from '@mui/material';
+import OrderForm from './order-form';
+import ConfirmationModal from '../../../custom-ui/confirmation-modal';
 
 const StyledCard = styled(Box)({
   display: 'flex',
@@ -12,9 +14,15 @@ const StyledCard = styled(Box)({
   gap: 32,
 });
 
-const OrderDetails = (): ReactElement => {
+const OrderDetails = (): ReactElement | null => {
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
   const { cartItems, totalAmount } = useSelector(selectCart);
   const theme = useTheme();
+
+  if (!cartItems.length) {
+    return null;
+  }
 
   return (
     <StyledCard>
@@ -32,6 +40,17 @@ const OrderDetails = (): ReactElement => {
           <Typography variant="h2">${totalAmount}</Typography>
         </Box>
       </Box>
+      <OrderForm onSubmit={() => setShowConfirmation(true)} />
+      <ConfirmationModal open={showConfirmation} onClose={() => setShowConfirmation(false)} title="Congratulations!">
+        <Box display="flex" flexDirection="column" marginRight={8} gap={2}>
+          <Typography variant="subtitle1" color="#fff">
+            Your order has been successfully placed on the website.
+          </Typography>
+          <Typography variant="subtitle1" color="#fff">
+            A manager will contact you shortly to confirm your order.
+          </Typography>
+        </Box>
+      </ConfirmationModal>
     </StyledCard>
   );
 };

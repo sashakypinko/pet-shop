@@ -17,7 +17,7 @@ const Breadcrumbs = ({ links }: Props): ReactElement => {
   return (
     <StyledBreadcrumbs separator={<Divider sx={{ width: 16 }} />}>
       {links.map(({ label, url }, index) => (
-        <BreadcrumbLink key={index} url={url} disabled={index === links.length} label={label} />
+        <BreadcrumbLink key={index} url={url} disabled={index === links.length - 1} label={label} />
       ))}
     </StyledBreadcrumbs>
   );

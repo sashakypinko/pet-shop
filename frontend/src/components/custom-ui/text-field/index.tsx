@@ -1,21 +1,43 @@
 import type { ReactElement } from 'react';
-import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
+import { styled, TextField as MuiTextField } from '@mui/material';
+import { useField } from 'formik';
+import { BaseTextFieldProps } from '@mui/material/TextField/TextField';
 
-interface Props extends TextFieldProps<'standard'> {
-  maxWidth?: number;
+const StyledTextField = styled(MuiTextField)(({ theme }) => ({
+  '& .MuiInputBase-root': {
+    borderRadius: 6,
+    background: theme.palette.background.paper,
+    border: '1px solid',
+    borderColor: theme.palette.text.disabled,
+
+    '& fieldset': {
+      border: 'none',
+    },
+
+    '& input': {
+      fontSize: 20,
+      fontWeight: 500,
+      padding: 16,
+    },
+  },
+}));
+
+interface Props extends BaseTextFieldProps {
+  name: string;
 }
 
-const TextField = ({ maxWidth = 120, ...props }: Props): ReactElement => {
+const TextField = ({ name, ...props }: Props): ReactElement => {
+  const [field, meta] = useField<string>(name);
+
   return (
-    <MuiTextField
+    <StyledTextField
       {...props}
-      size="small"
-      InputProps={{
-        sx: {
-          borderRadius: '6px',
-          maxWidth,
-        },
-      }}
+      name={name}
+      value={field.value}
+      helperText={meta.error && meta.touched ? meta.error : ' '}
+      error={!!(meta.error && meta.touched)}
+      onChange={field.onChange}
+      onBlur={field.onBlur}
     />
   );
 };
