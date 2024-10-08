@@ -1,5 +1,5 @@
-import {ReactElement} from 'react';
-import {Box, MenuItem, Select, SelectChangeEvent, Typography} from '@mui/material';
+import { ReactElement } from 'react';
+import { Box, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import SortOptionsEnum from '../../../../enums/sort-options.enum';
 
 interface Props {
@@ -14,12 +14,10 @@ const Sorting = ({ value, onChange }: Props): ReactElement => {
 
   return (
     <Box display="flex" alignItems="center" gap={2}>
-      <Typography variant="subtitle1" fontWeight={600}>Sorted</Typography>
-      <Select
-        value={value}
-        onChange={handleChange}
-        size="small"
-      >
+      <Typography variant="subtitle1" fontWeight={600}>
+        Sorted
+      </Typography>
+      <Select value={value} onChange={handleChange} size="small">
         <MenuItem value={SortOptionsEnum.DEFAULT}>by default</MenuItem>
         <MenuItem value={SortOptionsEnum.NEWEST}>newest</MenuItem>
         <MenuItem value={SortOptionsEnum.PRICE_HIGH_TO_LOW}>price: high-low</MenuItem>

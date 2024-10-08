@@ -1,14 +1,9 @@
-import {call, put, select, takeLatest} from 'redux-saga/effects';
-import {SagaIterator} from 'redux-saga';
-import {CategoryApi} from '../../services/api/category';
-import {
-  getCategoriesSuccess,
-  getCategoriesError,
-  getCategories,
-  setSelectedCategoryAfterFetch,
-} from './slice';
-import {PayloadAction} from '@reduxjs/toolkit';
-import {selectCategories} from '../selectors';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
+import { CategoryApi } from '../../services/api/category';
+import { getCategoriesSuccess, getCategoriesError, getCategories, setSelectedCategoryAfterFetch } from './slice';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { selectCategories } from '../selectors';
 
 export function* getCategoriesSaga(): SagaIterator {
   try {
@@ -21,7 +16,7 @@ export function* getCategoriesSaga(): SagaIterator {
 }
 
 function* changeSelectedCategorySaga(action: PayloadAction<number>): SagaIterator {
-  const {categories} = yield select(selectCategories);
+  const { categories } = yield select(selectCategories);
 
   if (!categories.length) {
     yield put(getCategories());

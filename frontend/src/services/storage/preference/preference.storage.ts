@@ -1,5 +1,5 @@
 import StorageService from '../storage-service';
-import {ThemeEnum} from '../../../configs/theme/enums/theme.enum';
+import { ThemeEnum } from '../../../configs/theme/enums/theme.enum';
 
 class PreferenceStorageService extends StorageService {
   changeThemeMode = (mode: ThemeEnum): void => {

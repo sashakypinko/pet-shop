@@ -1,15 +1,15 @@
-import {ReactElement, useEffect, useState} from 'react';
-import {Badge, Box, Container, IconButton, styled, useTheme} from '@mui/material';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { ReactElement, useEffect, useState } from 'react';
+import { Badge, Box, Container, IconButton, styled, useTheme } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 import NavbarDesktop from './navbar-desktop';
 import NavbarMobile from './navbar-mobile';
 import useIsMobile from '../../../hooks/use-is-mobile.hook';
-import {RouteEnum} from '../../../routes/enums/route.enum';
-import {getActiveRoute} from '../../../helpers/url-helper';
+import { RouteEnum } from '../../../routes/enums/route.enum';
+import { getActiveRoute } from '../../../helpers/url-helper';
 import ThemeSwitcher from './theme-switcher';
-import {NavLink} from './types';
-import {useSelector} from 'react-redux';
-import {selectCart} from '../../../store/selectors';
+import { NavLink } from './types';
+import { useSelector } from 'react-redux';
+import { selectCart } from '../../../store/selectors';
 
 const HEADER_DEFAULT_PADDING = '28px';
 const HEADER_SCROLLED_PADDING = '4px';
@@ -19,7 +19,7 @@ interface HeaderBoxProps {
   mobile: 1 | 0;
 }
 
-const HeaderContainer = styled(Container)<HeaderBoxProps>(({theme, scrolled, mobile}) => ({
+const HeaderContainer = styled(Container)<HeaderBoxProps>(({ theme, scrolled, mobile }) => ({
   display: 'flex',
   position: 'sticky',
   zIndex: 1000,
@@ -37,11 +37,15 @@ const HeaderContainer = styled(Container)<HeaderBoxProps>(({theme, scrolled, mob
 
 const Logo = (): ReactElement => (
   <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="35" cy="35" r="35" fill="#0D50FF"/>
+    <circle cx="35" cy="35" r="35" fill="#0D50FF" />
     <path
       d="M33.4445 21.0557H37.5557M49.8891 35.4447C48.5187 46.4077 45.0927 51.8892 39.6112
                     51.8892H31.3889C25.9074 51.8892 22.4815 46.4077 21.1111 35.4447"
-      stroke="white" strokeWidth="4.11114" strokeLinecap="round" strokeLinejoin="round"/>
+      stroke="white"
+      strokeWidth="4.11114"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
     <path
       d="M35.4999 47.778V51.8891M31.3887 33.389V33.4096M39.611 33.389V33.4096M33.4443 43.6669C33.4443 
                     45.0372 34.1295 45.7224 35.4999 45.7224C37.5554 45.7224 37.5554 45.0379 37.5554 43.6669H33.4443ZM21.1109 
@@ -49,7 +53,11 @@ const Logo = (): ReactElement => (
                     35.3137 17.7233 34.9697C17.4385 34.7389 17.2244 34.4326 17.1055 34.0858C16.9866 33.739 16.9678 33.3657 
                     17.0511 33.0087L21.1109 19ZM49.8889 19L37.5554 20.9939L50.3781 34.7416C51.114 35.5802 52.4111 35.683 53.2764
                     34.9697C53.5613 34.7389 53.7754 34.4326 53.8942 34.0858C54.0131 33.739 54.0319 33.3657 53.9486 33.0087L49.8889 19Z"
-      stroke="white" strokeWidth="4.11114" strokeLinecap="round" strokeLinejoin="round"/>
+      stroke="white"
+      strokeWidth="4.11114"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
@@ -68,24 +76,25 @@ const CartIcon = (): ReactElement => {
                         16.2895 32.9605 16.9094 32.9605 17.6327C32.9605 18.7156 33.8499 19.5918 34.9492 19.5918C36.0484
                         19.5918 36.9379 18.7156 36.9379 17.6327C36.9379 16.9094 36.5378 16.2895 35.9435
                         15.949V13.7143H42.0028L45.7627 46.0408H6.23729L9.99717 13.7143Z"
-        fill={theme.palette.text.primary}/>
+        fill={theme.palette.text.primary}
+      />
     </svg>
   );
 };
 
 const navLinks: NavLink[] = [
-  {label: 'Main Page', url: RouteEnum.MAIN},
-  {label: 'Categories', url: RouteEnum.CATEGORIES},
-  {label: 'All Products', url: RouteEnum.PRODUCTS},
-  {label: 'All Sales', url: RouteEnum.SALES},
+  { label: 'Main Page', url: RouteEnum.MAIN },
+  { label: 'Categories', url: RouteEnum.CATEGORIES },
+  { label: 'All Products', url: RouteEnum.PRODUCTS },
+  { label: 'All Sales', url: RouteEnum.SALES },
 ];
 
 const Header = (): ReactElement => {
   const [page, setPage] = useState<RouteEnum>(RouteEnum.MAIN);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  
+
   const { totalCount } = useSelector(selectCart);
-  
+
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const location = useLocation();
@@ -120,10 +129,10 @@ const Header = (): ReactElement => {
   return (
     <HeaderContainer maxWidth="xl" scrolled={isScrolled ? 1 : 0} mobile={isMobile ? 1 : 0}>
       <Box display="flex" alignItems="center" gap={2}>
-        {isMobile && <NavbarMobile links={navLinks} page={page} onPageChange={handlePageChange}/>}
-        <Logo/>
+        {isMobile && <NavbarMobile links={navLinks} page={page} onPageChange={handlePageChange} />}
+        <Logo />
       </Box>
-      {!isMobile && <NavbarDesktop links={navLinks} page={page} onPageChange={handlePageChange}/>}
+      {!isMobile && <NavbarDesktop links={navLinks} page={page} onPageChange={handlePageChange} />}
       <Box>
         <IconButton onClick={handleCartClick}>
           <Badge
@@ -143,10 +152,10 @@ const Header = (): ReactElement => {
             color="primary"
             badgeContent={totalCount}
           >
-            <CartIcon/>
+            <CartIcon />
           </Badge>
         </IconButton>
-        <ThemeSwitcher/>
+        <ThemeSwitcher />
       </Box>
     </HeaderContainer>
   );

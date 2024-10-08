@@ -1,6 +1,6 @@
-import {ChangeEvent, KeyboardEvent, ReactElement, useState} from 'react';
-import {Box, Typography} from '@mui/material';
-import {PriceFilter as PriceFilterType} from '../types';
+import { ChangeEvent, KeyboardEvent, ReactElement, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import { PriceFilter as PriceFilterType } from '../types';
 import TextField from '../../../custom-ui/text-field';
 
 interface Props {
@@ -8,17 +8,17 @@ interface Props {
   onChange: (newValue: PriceFilterType) => void;
 }
 
-const PriceFilter = ({value = { from: '', to: '' }, onChange}: Props): ReactElement => {
+const PriceFilter = ({ value = { from: '', to: '' }, onChange }: Props): ReactElement => {
   const [priceRange, setPriceRange] = useState<PriceFilterType>(value);
-  
+
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string): void => {
-    setPriceRange({ ...priceRange, [field]: e.target.value});
+    setPriceRange({ ...priceRange, [field]: e.target.value });
   };
-  
+
   const handleApply = (): void => {
     onChange(priceRange);
   };
-  
+
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.code === 'Enter') {
       handleApply();
@@ -27,12 +27,14 @@ const PriceFilter = ({value = { from: '', to: '' }, onChange}: Props): ReactElem
 
   return (
     <Box display="flex" alignItems="center" gap={2}>
-      <Typography variant="subtitle1" fontWeight={600}>Price</Typography>
+      <Typography variant="subtitle1" fontWeight={600}>
+        Price
+      </Typography>
       <TextField
         type="number"
         label="from"
         value={priceRange.from}
-        onChange={e => handleChange(e, 'from')}
+        onChange={(e) => handleChange(e, 'from')}
         onBlur={handleApply}
         onKeyDown={handleKeyDown}
       />
@@ -40,7 +42,7 @@ const PriceFilter = ({value = { from: '', to: '' }, onChange}: Props): ReactElem
         type="number"
         label="to"
         value={priceRange.to}
-        onChange={e => handleChange(e, 'to')}
+        onChange={(e) => handleChange(e, 'to')}
         onBlur={handleApply}
         onKeyDown={handleKeyDown}
       />

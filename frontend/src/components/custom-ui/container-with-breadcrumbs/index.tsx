@@ -1,7 +1,7 @@
-import {ReactElement, ReactNode} from 'react';
-import {Box, Typography} from '@mui/material';
+import { ReactElement, ReactNode } from 'react';
+import { Box, Typography } from '@mui/material';
 import Breadcrumbs from '../breadcrumbs';
-import {BreadcrumbLinkProps} from '../breadcrumbs/types';
+import { BreadcrumbLinkProps } from '../breadcrumbs/types';
 
 interface Props {
   title?: string;
@@ -9,10 +9,10 @@ interface Props {
   children: ReactNode;
 }
 
-const ContainerWithBreadcrumbs = ({title, links = [], children}: Props): ReactElement => {
+const ContainerWithBreadcrumbs = ({ title, links = [], children }: Props): ReactElement => {
   return (
-    <Box sx={{pt: 6}} display="flex" flexDirection="column" gap={5}>
-      <Breadcrumbs links={links}/>
+    <Box sx={{ pt: 6 }} display="flex" flexDirection="column" gap={5}>
+      <Breadcrumbs links={links} />
       {title && <Typography variant="h2">{title}</Typography>}
       {children}
     </Box>

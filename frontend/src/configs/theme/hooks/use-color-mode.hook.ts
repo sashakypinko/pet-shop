@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { type Theme } from '@mui/material';
 import { darkTheme, lightTheme } from '../index';
 import { ThemeEnum } from '../enums/theme.enum';
-import {PreferenceStorage} from '../../../services/storage/preference/preference.storage';
+import { PreferenceStorage } from '../../../services/storage/preference/preference.storage';
 
 const useColorMode = () => {
   const [mode, setMode] = useState<ThemeEnum>(PreferenceStorage.getThemeMode() || ThemeEnum.LIGHT_MODE);

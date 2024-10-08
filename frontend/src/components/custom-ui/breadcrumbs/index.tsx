@@ -1,6 +1,6 @@
-import type {ReactElement} from 'react';
-import {styled, Breadcrumbs as MuiBreadcrumbs, Divider} from '@mui/material';
-import {BreadcrumbLinkProps} from './types';
+import type { ReactElement } from 'react';
+import { styled, Breadcrumbs as MuiBreadcrumbs, Divider } from '@mui/material';
+import { BreadcrumbLinkProps } from './types';
 import BreadcrumbLink from './breadcrumb-link';
 
 const StyledBreadcrumbs = styled(MuiBreadcrumbs)({
@@ -13,19 +13,12 @@ interface Props {
   links: BreadcrumbLinkProps[];
 }
 
-const Breadcrumbs = ({links}: Props): ReactElement => {
+const Breadcrumbs = ({ links }: Props): ReactElement => {
   return (
-    <StyledBreadcrumbs separator={<Divider sx={{width: 16}}/>}>
-      {
-        links.map(({label, url}, index) => (
-          <BreadcrumbLink
-            key={index}
-            url={url}
-            disabled={index === links.length}
-            label={label}
-          />
-        ))
-      }
+    <StyledBreadcrumbs separator={<Divider sx={{ width: 16 }} />}>
+      {links.map(({ label, url }, index) => (
+        <BreadcrumbLink key={index} url={url} disabled={index === links.length} label={label} />
+      ))}
     </StyledBreadcrumbs>
   );
 };

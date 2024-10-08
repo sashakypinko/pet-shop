@@ -1,6 +1,6 @@
-import {ReactElement} from 'react';
-import {Box, IconButton, styled, Typography} from '@mui/material';
-import {Add, Remove} from '@mui/icons-material';
+import { ReactElement } from 'react';
+import { Box, IconButton, styled, Typography } from '@mui/material';
+import { Add, Remove } from '@mui/icons-material';
 
 const CountPickerBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -14,12 +14,11 @@ const ChangeCountButton = styled(IconButton)(({ theme }) => ({
   padding: 16,
 }));
 
-
 const CountText = styled(Typography)({
   fontSize: 20,
   fontWeight: 600,
   width: 96,
-  textAlign: 'center'
+  textAlign: 'center',
 });
 
 interface Props {
@@ -37,7 +36,7 @@ const CountPicker = ({ value, min = 0, max, onChange }: Props): ReactElement => 
   const handleDecrease = () => {
     if (value > min) onChange(value - 1);
   };
-  
+
   return (
     <CountPickerBox>
       <ChangeCountButton onClick={handleDecrease} disabled={value <= min}>

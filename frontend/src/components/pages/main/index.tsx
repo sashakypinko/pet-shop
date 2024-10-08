@@ -1,8 +1,8 @@
-import {ReactElement} from 'react';
-import {Box, styled, Typography} from '@mui/material';
+import { ReactElement } from 'react';
+import { Box, styled, Typography } from '@mui/material';
 import Button from '../../custom-ui/button';
-import {Link} from 'react-router-dom';
-import {RouteEnum} from '../../../routes/enums/route.enum';
+import { Link } from 'react-router-dom';
+import { RouteEnum } from '../../../routes/enums/route.enum';
 import ContainerWithLink from '../../custom-ui/container-with-link';
 import CategoryList from '../../shared/category-list';
 import ProductList from '../../shared/product-list';
@@ -24,7 +24,7 @@ const MainPage = (): ReactElement => {
       <WelcomeSection>
         <Typography variant="h1" color="#fff">
           Amazing Discounts
-          <br/>
+          <br />
           on Pets Products!
         </Typography>
         <Link to={RouteEnum.SALES}>

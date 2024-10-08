@@ -23,7 +23,7 @@ const darkTheme = createTheme({
     text: {
       primary: '#ffffff',
       secondary: '#787878',
-    }
+    },
   },
 });
 

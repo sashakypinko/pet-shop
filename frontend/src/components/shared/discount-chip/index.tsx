@@ -1,6 +1,6 @@
-import {ReactElement} from 'react';
-import {Chip, styled, SxProps} from '@mui/material';
-import {IProduct} from '../../../services/api/product/dto/product.dto';
+import { ReactElement } from 'react';
+import { Chip, styled, SxProps } from '@mui/material';
+import { IProduct } from '../../../services/api/product/dto/product.dto';
 
 const StyledChip = styled(Chip)({
   borderRadius: 6,
@@ -18,15 +18,9 @@ const DiscountChip = ({ product, sx }: Props): ReactElement | null => {
     return null;
   }
 
-  const discountPercentage = Math.round(100 - product.discont_price * 100 / product.price);
-  
-  return (
-    <StyledChip
-      sx={sx}
-      label={`-${discountPercentage}%`} 
-      color="primary"
-    />
-  );
+  const discountPercentage = Math.round(100 - (product.discont_price * 100) / product.price);
+
+  return <StyledChip sx={sx} label={`-${discountPercentage}%`} color="primary" />;
 };
 
 export default DiscountChip;

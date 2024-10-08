@@ -1,13 +1,13 @@
-import {ReactElement, ReactNode} from 'react';
-import {Box, Container, Grid, styled, Typography, useTheme} from '@mui/material';
+import { ReactElement, ReactNode } from 'react';
+import { Box, Container, Grid, styled, Typography, useTheme } from '@mui/material';
 
-const FooterContainer = styled(Container)(({theme}) => ({
+const FooterContainer = styled(Container)(({ theme }) => ({
   marginTop: 80,
   marginBottom: 80,
-  background: theme.palette.background.default
+  background: theme.palette.background.default,
 }));
 
-const StyledCard = styled(Box)(({theme}) => ({
+const StyledCard = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   maxHeight: '-webkit-fill-available',
@@ -26,16 +26,18 @@ const MapImage = styled('img')({
 });
 
 interface ContactCardProps {
-  title: string,
-  children: ReactNode,
+  title: string;
+  children: ReactNode;
 }
 
-const ContactCard = ({title, children}: ContactCardProps): ReactElement => {
+const ContactCard = ({ title, children }: ContactCardProps): ReactElement => {
   const theme = useTheme();
 
   return (
     <StyledCard>
-      <Typography variant="subtitle1" color={theme.palette.text.secondary}>{title}</Typography>
+      <Typography variant="subtitle1" color={theme.palette.text.secondary}>
+        {title}
+      </Typography>
       {children}
     </StyledCard>
   );
@@ -46,7 +48,9 @@ const Footer = (): ReactElement => {
 
   return (
     <FooterContainer maxWidth="xl">
-      <Typography sx={{mb: 2}} variant="h2">Contact</Typography>
+      <Typography sx={{ mb: 2 }} variant="h2">
+        Contact
+      </Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} md={7}>
           <ContactCard title="Phone">
@@ -56,8 +60,7 @@ const Footer = (): ReactElement => {
         <Grid item xs={12} md={5}>
           <ContactCard title="Socials">
             <Box display="flex" gap={2}>
-              <svg width="43" height="44" viewBox="0 0 43 44" fill="none"
-                   xmlns="http://www.w3.org/2000/svg">
+              <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="
                                     M31.5 3H12.5C7.27546 3 3 7.27361 3 12.5V31.5C3 36.7245 7.27546 41 12.5 41H31.5C36.7245
@@ -67,10 +70,10 @@ const Footer = (): ReactElement => {
                                       14.0832C30.9789 14.0832 29.9168 13.0196 29.9168 11.7082C29.9168 10.3967 30.9789
                                        9.33318 32.2918 9.33318C33.6047 9.33318 34.6668 10.3967 34.6668 11.7082C34.6668
                                         13.0196 33.6047 14.0832 32.2918 14.0832Z"
-                  fill={theme.palette.text.primary}/>
+                  fill={theme.palette.text.primary}
+                />
               </svg>
-              <svg width="43" height="43" viewBox="0 0 43 43" fill="none"
-                   xmlns="http://www.w3.org/2000/svg">
+              <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M21.959 3C11.4824 3 2.95898 11.5228 2.95898 22C2.95898 25.6862 4.01598 29.24
                                      6.02236 32.3263L3.06165 39.2348C2.85755 39.7098 2.96393 40.2628 3.33008 40.6289C3.57253 
@@ -83,7 +86,8 @@ const Footer = (): ReactElement => {
                                      16.4484L17.9066 17.8858C17.9066 17.8858 17.324 19.6349 20.8234 23.1355C24.3229 26.635
                                       26.0732 26.0523 26.0732 26.0523L27.5105 24.6137C28.0029 24.1214 28.8094 24.1214 
                                       29.3017 24.6137L31.5938 26.9059C32.0861 27.3982 32.1393 28.2505 31.7113 28.8009Z"
-                  fill={theme.palette.text.primary}/>
+                  fill={theme.palette.text.primary}
+                />
               </svg>
             </Box>
           </ContactCard>
@@ -99,7 +103,7 @@ const Footer = (): ReactElement => {
           </ContactCard>
         </Grid>
         <Grid height="100%" item xs={12}>
-          <MapImage src={require('../../../assets/img/map.png')} alt="map"/>
+          <MapImage src={require('../../../assets/img/map.png')} alt="map" />
         </Grid>
       </Grid>
     </FooterContainer>

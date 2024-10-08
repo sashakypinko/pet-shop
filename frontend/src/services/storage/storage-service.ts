@@ -1,7 +1,5 @@
 export default class StorageService {
-  constructor(protected readonly prefix: string) {
-
-  }
+  constructor(protected readonly prefix: string) {}
 
   store = (key: string, value: any): void => {
     localStorage.setItem(`${this.prefix}.${key}`, JSON.stringify(value));

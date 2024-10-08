@@ -1,7 +1,7 @@
-import type {ReactElement} from 'react';
-import {styled, Checkbox as MuiCheckbox, CheckboxProps} from '@mui/material';
+import type { ReactElement } from 'react';
+import { styled, Checkbox as MuiCheckbox, CheckboxProps } from '@mui/material';
 
-const Icon = styled('span')(({theme}) => ({
+const Icon = styled('span')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -27,10 +27,11 @@ const CheckedIcon = styled(Icon)(() => ({
     display: 'block',
     width: 24,
     height: 24,
-    backgroundImage: 'url("data:image/svg+xml;charset=utf-8,%3Csvg'
-      + ' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 18 18\'' +
-      ' fill=\'none\'%3E%3Cpath d=\'M17 1L6 12L1 7\' stroke=\'%23fff\'' +
-      ' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' /%3E%3C/svg%3E")',
+    backgroundImage:
+      'url("data:image/svg+xml;charset=utf-8,%3Csvg' +
+      " xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'" +
+      " fill='none'%3E%3Cpath d='M17 1L6 12L1 7' stroke='%23fff'" +
+      " stroke-width='2' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E\")",
     content: '""',
   },
   'input:hover ~ &': {
@@ -42,10 +43,10 @@ const Checkbox = (props: CheckboxProps): ReactElement => {
   return (
     <MuiCheckbox
       {...props}
-      sx={{'&:hover': {bgcolor: 'transparent'}}}
-      checkedIcon={<CheckedIcon/>}
-      icon={<Icon/>}
-      inputProps={{'aria-label': 'Checkbox demo'}}
+      sx={{ '&:hover': { bgcolor: 'transparent' } }}
+      checkedIcon={<CheckedIcon />}
+      icon={<Icon />}
+      inputProps={{ 'aria-label': 'Checkbox demo' }}
     />
   );
 };

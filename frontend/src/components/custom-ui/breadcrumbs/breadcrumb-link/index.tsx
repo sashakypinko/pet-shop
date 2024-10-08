@@ -1,13 +1,13 @@
-import type {ReactElement} from 'react';
-import {styled} from '@mui/material';
-import {Link} from 'react-router-dom';
-import {BreadcrumbLinkProps} from '../types';
+import type { ReactElement } from 'react';
+import { styled } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { BreadcrumbLinkProps } from '../types';
 
 interface StyledLinkProps {
   disabled: 1 | 0;
 }
 
-const StyledLink = styled(Link)<StyledLinkProps>(({theme, disabled}) => ({
+const StyledLink = styled(Link)<StyledLinkProps>(({ theme, disabled }) => ({
   border: '1px solid',
   borderColor: theme.palette.text.disabled,
   borderRadius: 6,

@@ -1,5 +1,5 @@
 import StorageService from '../storage-service';
-import {ICartItem} from './dto/cart-item.dto';
+import { ICartItem } from './dto/cart-item.dto';
 
 class CartStorageService extends StorageService {
   getItems = (): ICartItem[] => {
@@ -9,7 +9,7 @@ class CartStorageService extends StorageService {
   updateItems = (newItems: ICartItem[]): void => {
     this.store('items', newItems);
   };
-  
+
   removeItems = (): void => {
     this.remove('items');
   };

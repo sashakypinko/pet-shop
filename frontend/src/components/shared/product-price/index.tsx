@@ -1,5 +1,5 @@
-import {ReactElement} from 'react';
-import {Box, Typography, useTheme} from '@mui/material';
+import { ReactElement } from 'react';
+import { Box, Typography, useTheme } from '@mui/material';
 
 interface Props {
   price: number;
@@ -12,16 +12,11 @@ const ProductPrice = ({ price, discountPrice }: Props): ReactElement => {
   return (
     <Box display="flex" gap={2} alignItems="baseline">
       <Typography variant="h3">${discountPrice || price}</Typography>
-      {
-        discountPrice !== null && (
-          <Typography
-            variant="subtitle1"
-            color={theme.palette.text.secondary}
-          >
-            ${price}
-          </Typography>
-        )
-      }
+      {discountPrice !== null && (
+        <Typography variant="subtitle1" color={theme.palette.text.secondary}>
+          ${price}
+        </Typography>
+      )}
     </Box>
   );
 };
