@@ -17,12 +17,18 @@ app.use(cors({
     origin: '*'
 }));
 
+console.log(process.argv);
+
 // Imitate long requests to see skeletons 
-const delay = ms => new Promise(res => setTimeout(res, ms));
-app.use(async (req, res, next) => {
-    await delay(1000);
-    next(); 
-});
+if (process.argv[2]) {
+    const delay = () => new Promise(res => setTimeout(res, process.argv[2]));
+    
+    app.use(async (req, res, next) => {
+        await delay();
+        next();
+    });
+}
+
 
 app.use(express.urlencoded());
 app.use('/categories', categories);
@@ -35,7 +41,7 @@ app.use(express.json());
 
 const start = async () => {
     try {
-        await sequelize.sync().then(console.log);
+        await sequelize.sync().then();
 
         app.listen(PORT, () => {
             console.log(`\n\nServer started on ${PORT} port...`);

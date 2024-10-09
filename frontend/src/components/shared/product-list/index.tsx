@@ -59,15 +59,14 @@ const ProductList = ({ categoryId, discounted, limit, withoutFiler }: Props): Re
     const sortMap: { [key in SortOptionsEnum]: (a: IProduct, b: IProduct) => number } = {
       [SortOptionsEnum.DEFAULT]: () => 0,
       [SortOptionsEnum.NEWEST]: (a, b) => a.id - b.id,
-      [SortOptionsEnum.PRICE_HIGH_TO_LOW]: (a, b) => b.discont_price || b.price - a.price,
-      [SortOptionsEnum.PRICE_LOW_TO_HIGH]: (a, b) => a.price - b.price,
+      [SortOptionsEnum.PRICE_HIGH_TO_LOW]: (a, b) => (b.discont_price || b.price) - (a.discont_price || a.price),
+      [SortOptionsEnum.PRICE_LOW_TO_HIGH]: (a, b) => (a.discont_price || a.price) - (b.discont_price || b.price),
     };
 
     const sortedProducts = filteredProducts.sort(sortMap[sort] || (() => 0));
 
     return sortedProducts.slice(0, limit);
   }, [products, filter, categoryId, discounted, limit]);
-
 
   const handleAddToCard = (product: IProduct) => {
     dispatch(

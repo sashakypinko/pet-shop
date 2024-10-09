@@ -1,8 +1,8 @@
 import React, { lazy, type ReactElement, Suspense } from 'react';
 import { Route, Routes as CommonRoutes } from 'react-router-dom';
-import { CircularProgress } from '@mui/material';
 import { type RouteInterface } from './interfaces/route.interface';
 import { RouteEnum } from './enums/route.enum';
+import Loader from '../components/custom-ui/loader';
 
 const MainPage = lazy(() => import('../components/pages/main'));
 const CategoriesPage = lazy(() => import('../components/pages/categories'));
@@ -46,7 +46,7 @@ const routes: RouteInterface[] = [
 
 const Routes = (): ReactElement => {
   return (
-    <Suspense fallback={<CircularProgress />}>
+    <Suspense fallback={<Loader />}>
       <CommonRoutes>
         {routes.map((route: RouteInterface, key: number) => (
           <Route key={key} path={route.path} Component={route.Component} />

@@ -5,23 +5,19 @@ import ContainerWithBreadcrumbs from '../../custom-ui/container-with-breadcrumbs
 import ProductList from '../../shared/product-list';
 import { RouteEnum } from '../../../routes/enums/route.enum';
 import { useParams } from 'react-router-dom';
-import { getCategories } from '../../../store/categories/slice';
-import { ICategory } from '../../../services/api/category/dto/category.dto';
+import { setSelectedCategory } from '../../../store/categories/slice';
+import Loader from '../../custom-ui/loader';
 
-const CategoryProductsPage = (): ReactElement => {
+const CategoryProductsPage = (): ReactElement | null => {
   const { id: categoryId } = useParams();
   const dispatch = useDispatch();
-  const { categories, loading: categoriesLoading } = useSelector(selectCategories);
+  const { selectedCategory, loading } = useSelector(selectCategories);
 
   useEffect(() => {
-    if (!categories.length) {
-      dispatch(getCategories());
+    if (categoryId) {
+      dispatch(setSelectedCategory(parseInt(categoryId)));
     }
-  }, []);
-
-  const selectedCategory: ICategory | null = useMemo(() => {
-    return categories.find(({ id }) => id.toString() === categoryId) || null;
-  }, [categories, categoryId]);
+  }, [categoryId]);
 
   const breadcrumbLinks = useMemo(() => {
     return [
@@ -31,8 +27,13 @@ const CategoryProductsPage = (): ReactElement => {
     ];
   }, [selectedCategory]);
 
-  if (categoriesLoading || !selectedCategory) {
-    return <>Loading...</>;
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!selectedCategory) {
+    // TODO: replace with error component
+    return null;
   }
 
   return (

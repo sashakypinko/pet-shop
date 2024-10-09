@@ -25,13 +25,18 @@ const productsSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
-    changeSelectedProduct: (state: ProductsState, action: PayloadAction<number>) => {
-      state.loading = true;
+    setSelectedProduct: (state: ProductsState, action: PayloadAction<number>) => {
       state.selectedProduct = null;
+      state.loading = true;
+      state.error = null;
     },
-    setSelectedProductAfterFetch: (state: ProductsState, { payload }: PayloadAction<number>) => {
+    setSelectedProductSuccess: (state: ProductsState, { payload: product }: PayloadAction<IProduct>) => {
       state.loading = false;
-      state.selectedProduct = state.products.find(({ id }) => id === payload) || null;
+      state.selectedProduct = product;
+    },
+    setSelectedProductError: (state: ProductsState, { payload: error }: PayloadAction<any>) => {
+      state.loading = false;
+      state.error = error;
     },
   },
 });
@@ -40,8 +45,9 @@ export const {
   getProducts,
   getProductsSuccess,
   getProductsError,
-  changeSelectedProduct,
-  setSelectedProductAfterFetch,
+  setSelectedProduct,
+  setSelectedProductSuccess,
+  setSelectedProductError,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -8,23 +8,23 @@ export default class ApiService {
     this.instance = axios.create({ baseURL: process.env.REACT_APP_API_URL });
   }
 
-  get = async (url: string, query = {}) => {
+  get = async (url: string | number, query = {}) => {
     return await this.instance.get(`/${this.pathPrefix}/${url}`, query);
   };
 
-  post = async (url: string, data = {}): Promise<AxiosResponse> => {
+  post = async (url: string | number, data = {}): Promise<AxiosResponse> => {
     return await this.instance.post(`/${this.pathPrefix}/${url}`, data);
   };
 
-  put = async (url: string, data = {}): Promise<AxiosResponse> => {
+  put = async (url: string | number, data = {}): Promise<AxiosResponse> => {
     return await this.instance.put(`/${this.pathPrefix}/${url}`, data);
   };
 
-  patch = async (url: string, data = {}): Promise<AxiosResponse> => {
+  patch = async (url: string | number, data = {}): Promise<AxiosResponse> => {
     return await this.instance.patch(`/${this.pathPrefix}/${url}`, data);
   };
 
-  delete = async (url: string, query = {}): Promise<AxiosResponse> => {
+  delete = async (url: string | number, query = {}): Promise<AxiosResponse> => {
     return await this.instance.delete(`/${this.pathPrefix}/${url}`, query);
   };
 }

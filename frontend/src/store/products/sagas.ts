@@ -1,9 +1,9 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { ProductApi } from '../../services/api/product';
-import { getProductsSuccess, getProductsError, getProducts, setSelectedProductAfterFetch } from './slice';
+import { getProductsSuccess, getProductsError, setSelectedProductSuccess, setSelectedProductError } from './slice';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { selectProducts } from '../selectors';
+import { setSelectedCategory } from '../categories/slice';
 
 export function* getProductsSaga(): SagaIterator {
   try {
@@ -15,20 +15,18 @@ export function* getProductsSaga(): SagaIterator {
   }
 }
 
-function* changeSelectedProductSaga(action: PayloadAction<number>): SagaIterator {
-  const { products } = yield select(selectProducts);
-
-  if (!products.length) {
-    yield put(getProducts());
-    yield takeLatest(getProductsSuccess, function* () {
-      yield put(setSelectedProductAfterFetch(action.payload));
-    });
-  } else {
-    yield put(setSelectedProductAfterFetch(action.payload));
+export function* setSelectedProductSaga({ payload }: PayloadAction<number>): SagaIterator {
+  try {
+    const data = yield call(ProductApi.getById, payload);
+    yield put(setSelectedProductSuccess(data));
+    yield put(setSelectedCategory(data.categoryId));
+  } catch (error) {
+    console.log([error]);
+    yield put(setSelectedProductError(error));
   }
 }
 
 export function* watchProducts() {
   yield takeLatest('products/getProducts', getProductsSaga);
-  yield takeLatest('products/changeSelectedProduct', changeSelectedProductSaga);
+  yield takeLatest('products/setSelectedProduct', setSelectedProductSaga);
 }

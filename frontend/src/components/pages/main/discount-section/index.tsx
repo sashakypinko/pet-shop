@@ -5,7 +5,7 @@ import DiscountForm from './discount-form';
 const SectionContainer = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
-  gap: 60,
+  gap: 40,
   padding: 32,
   borderRadius: 12,
   background: 'linear-gradient(261deg, #2451C6 32.63%, #0D50FF 98.96%)',
@@ -15,7 +15,7 @@ const SectionContainer = styled(Box)({
 const Image = styled('img')({
   width: '100%',
   position: 'relative',
-  bottom: -80,
+  bottom: -42,
 });
 
 const DiscountSection = (): ReactElement => {
@@ -28,7 +28,7 @@ const DiscountSection = (): ReactElement => {
         <Grid item xs={12} md={7}>
           <Image src={require('../../../../assets/img/pets.png')} alt="pets" />
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={5} display="flex" alignItems="end">
           <DiscountForm />
         </Grid>
       </Grid>

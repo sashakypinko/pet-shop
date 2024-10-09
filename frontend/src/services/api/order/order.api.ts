@@ -4,7 +4,7 @@ import { CreateOrderResponseDto } from './dto/create-order-response.dto';
 
 class OrderApiService extends ApiService {
   create = async (data: IOrder): Promise<CreateOrderResponseDto> =>
-    await this.post('/send', data).then((res) => res.data);
+    await this.post('send', data).then((res) => res.data);
 }
 
 export const OrderApi = new OrderApiService('order');

@@ -25,13 +25,18 @@ const categoriesSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
-    changeSelectedCategory: (state: CategoriesState, action: PayloadAction<number>) => {
-      state.loading = true;
+    setSelectedCategory: (state: CategoriesState, action: PayloadAction<number>) => {
       state.selectedCategory = null;
+      state.loading = true;
+      state.error = null;
     },
-    setSelectedCategoryAfterFetch: (state: CategoriesState, { payload }: PayloadAction<number>) => {
+    setSelectedCategorySuccess: (state: CategoriesState, { payload: category }: PayloadAction<ICategory>) => {
       state.loading = false;
-      state.selectedCategory = state.categories.find(({ id }) => id === payload) || null;
+      state.selectedCategory = category;
+    },
+    setSelectedCategoryError: (state: CategoriesState, { payload: error }: PayloadAction<any>) => {
+      state.loading = false;
+      state.error = error;
     },
   },
 });
@@ -40,8 +45,9 @@ export const {
   getCategories,
   getCategoriesSuccess,
   getCategoriesError,
-  changeSelectedCategory,
-  setSelectedCategoryAfterFetch,
+  setSelectedCategory,
+  setSelectedCategorySuccess,
+  setSelectedCategoryError,
 } = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

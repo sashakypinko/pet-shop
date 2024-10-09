@@ -1,25 +1,26 @@
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import ContainerWithBreadcrumbs from '../../custom-ui/container-with-breadcrumbs';
 import { RouteEnum } from '../../../routes/enums/route.enum';
-import { changeSelectedProduct } from '../../../store/products/slice';
+import { setSelectedProduct } from '../../../store/products/slice';
 import { generatePath, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategories, selectProducts } from '../../../store/selectors';
-import { changeSelectedCategory } from '../../../store/categories/slice';
 import { Box, Grid, styled, Typography, useTheme } from '@mui/material';
 import DiscountChip from '../../shared/discount-chip';
 import CountPicker from '../../custom-ui/count-picker';
 import Button from '../../custom-ui/button';
 import { generateImageUrl } from '../../../helpers/url-helper';
 import { addCartItem } from '../../../store/cart/slice';
+import ProductDetailsSkeleton from './skeleton';
 
 const Image = styled('img')({
   width: '100%',
   objectFit: 'cover',
   borderRadius: 12,
+  aspectRatio: '1 / 1',
 });
 
-const ProductDetailsPage = (): ReactElement => {
+const ProductDetailsPage = (): ReactElement | null => {
   const [count, setCount] = useState<number>(1);
   const { id: productId } = useParams();
   const dispatch = useDispatch();
@@ -30,15 +31,9 @@ const ProductDetailsPage = (): ReactElement => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(changeSelectedProduct(parseInt(productId)));
+      dispatch(setSelectedProduct(parseInt(productId)));
     }
   }, [productId]);
-
-  useEffect(() => {
-    if (selectedProduct) {
-      dispatch(changeSelectedCategory(selectedProduct.categoryId));
-    }
-  }, [selectedProduct]);
 
   const handleAddToCart = () => {
     if (!selectedProduct) return;
@@ -64,11 +59,12 @@ const ProductDetailsPage = (): ReactElement => {
   }, [selectedProduct, selectedCategory]);
 
   if (productsLoading || categoriesLoading) {
-    return <>Loading...</>;
+    return <ProductDetailsSkeleton />;
   }
 
   if (!selectedProduct) {
-    return <>Loading...</>;
+    // TODO: replace with error component
+    return null;
   }
 
   return (
@@ -97,8 +93,10 @@ const ProductDetailsPage = (): ReactElement => {
                 Add to cart
               </Button>
             </Box>
-            <Typography>Description</Typography>
-            <Typography>{selectedProduct.description}</Typography>
+            <Box display="flex" flexDirection="column" gap={2}>
+              <Typography variant="subtitle1">Description</Typography>
+              <Typography>{selectedProduct.description}</Typography>
+            </Box>
           </Box>
         </Grid>
       </Grid>

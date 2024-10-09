@@ -12,16 +12,16 @@ router.get('/:id', async (req, res) =>{
 
     if (isNaN(id)){
         res.json({status: 'ERR', message: 'wrong id'}); 
-        return  
+        return;
     }
-    const all = await Product.findAll({where: {id: +id}});
+    const product = await Product.findOne({where: {id: +id}});
 
-    if(all.length === 0){
+    if(!product){
         res.json({status: 'ERR', message: 'product not found'});
-        return
+        return;
     }
     
-    res.json(all);
+    res.json(product);
 });
 
 router.get('/add/:title/:price/:discont_price/:description', (req, res) =>{
