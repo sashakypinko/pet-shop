@@ -15,7 +15,7 @@ const StyledCard = styled(Box)({
 });
 
 const OrderDetails = (): ReactElement | null => {
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
   const { cartItems, totalAmount } = useSelector(selectCart);
   const theme = useTheme();

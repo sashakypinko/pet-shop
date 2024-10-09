@@ -3,8 +3,9 @@ import {Container, CssBaseline, ThemeProvider} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-import ColorModeContext from './configs/theme/context/color-mode.context';
-import useColorMode from './configs/theme/hooks/use-color-mode.hook';
+import {getCartItems} from './store/cart/slice';
+import SnackbarProvider from './components/custom-ui/snackbar';
+import theme from './configs/theme';
 import Header from './components/layouts/header';
 import Footer from './components/layouts/footer';
 import Routes from './routes/routes';
@@ -13,11 +14,8 @@ import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat/700.css';
-import {getCartItems} from './store/cart/slice';
-import SnackbarProvider from './components/custom-ui/snackbar';
 
 const App = (): ReactElement => {
-  const {colorMode, currentTheme} = useColorMode();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,8 +23,7 @@ const App = (): ReactElement => {
   }, []);
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={currentTheme}>
+      <ThemeProvider theme={theme}>
         <SnackbarProvider>
           <CssBaseline/>
           <Router>
@@ -38,7 +35,6 @@ const App = (): ReactElement => {
           </Router>
         </SnackbarProvider>
       </ThemeProvider>
-    </ColorModeContext.Provider>
   );
 };
 

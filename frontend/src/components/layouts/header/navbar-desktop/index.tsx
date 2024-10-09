@@ -20,8 +20,10 @@ const NavbarDesktop = ({ links, page, onPageChange }: NavbarProps): ReactElement
     onPageChange(newPage);
   };
 
+  const validTabs = links.map(({ url }) => url);
+
   return (
-    <StyledTabs value={page} onChange={handlePageChange}>
+    <StyledTabs value={validTabs.includes(page) ? page : false} onChange={handlePageChange}>
       {links.map(({ label, url }, index) => (
         <StyledTab key={index} value={url} label={label} />
       ))}

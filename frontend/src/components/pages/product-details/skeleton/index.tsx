@@ -9,7 +9,7 @@ const ImageSkeleton = styled(Skeleton)({
 
 const ProductDetailsSkeleton = (): ReactElement => {
   return (
-    <Grid sx={{ mt: 20 }} container spacing={4}>
+    <Grid sx={{ mt: 12 }} container spacing={4}>
       <Grid item xs={12} md={5}>
         <ImageSkeleton variant="rectangular" />
       </Grid>

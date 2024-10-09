@@ -1,12 +1,11 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { Badge, Box, Container, IconButton, styled, useTheme } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import NavbarDesktop from './navbar-desktop';
 import NavbarMobile from './navbar-mobile';
 import useIsMobile from '../../../hooks/use-is-mobile.hook';
 import { RouteEnum } from '../../../routes/enums/route.enum';
 import { getActiveRoute } from '../../../helpers/url-helper';
-import ThemeSwitcher from './theme-switcher';
 import { NavLink } from './types';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../../../store/selectors';
@@ -130,7 +129,9 @@ const Header = (): ReactElement => {
     <HeaderContainer maxWidth="xl" scrolled={isScrolled ? 1 : 0} mobile={isMobile ? 1 : 0}>
       <Box display="flex" alignItems="center" gap={2}>
         {isMobile && <NavbarMobile links={navLinks} page={page} onPageChange={handlePageChange} />}
-        <Logo />
+        <Link style={{ display: 'flex' }} to={RouteEnum.MAIN}>
+          <Logo />
+        </Link>
       </Box>
       {!isMobile && <NavbarDesktop links={navLinks} page={page} onPageChange={handlePageChange} />}
       <Box>
@@ -155,7 +156,6 @@ const Header = (): ReactElement => {
             <CartIcon />
           </Badge>
         </IconButton>
-        <ThemeSwitcher />
       </Box>
     </HeaderContainer>
   );

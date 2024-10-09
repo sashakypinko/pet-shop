@@ -1,4 +1,4 @@
-export interface CreateOrderResponseDto {
+export interface GetDiscountResponseDto {
   message: string;
   status: 'OK' | 'ERR';
 }

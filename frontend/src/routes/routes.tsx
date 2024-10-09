@@ -1,17 +1,16 @@
-import React, { lazy, type ReactElement, Suspense } from 'react';
+import React, { type ReactElement } from 'react';
 import { Route, Routes as CommonRoutes } from 'react-router-dom';
 import { type RouteInterface } from './interfaces/route.interface';
 import { RouteEnum } from './enums/route.enum';
-import Loader from '../components/custom-ui/loader';
 
-const MainPage = lazy(() => import('../components/pages/main'));
-const CategoriesPage = lazy(() => import('../components/pages/categories'));
-const CategoryProductsPage = lazy(() => import('../components/pages/category-products'));
-const ProductsPage = lazy(() => import('../components/pages/products'));
-const ProductDetailsPage = lazy(() => import('../components/pages/product-details'));
-const SalesPage = lazy(() => import('../components/pages/sales'));
-const ShoppingCartPage = lazy(() => import('../components/pages/shopping-cart'));
-const NotFoundPage = lazy(() => import('../components/pages/not-found'));
+import MainPage from '../components/pages/main';
+import CategoriesPage from '../components/pages/categories';
+import CategoryProductsPage from '../components/pages/category-products';
+import ProductsPage from '../components/pages/products';
+import ProductDetailsPage from '../components/pages/product-details';
+import SalesPage from '../components/pages/sales';
+import ShoppingCartPage from '../components/pages/shopping-cart';
+import NotFoundPage from '../components/pages/not-found';
 
 const routes: RouteInterface[] = [
   {
@@ -46,14 +45,12 @@ const routes: RouteInterface[] = [
 
 const Routes = (): ReactElement => {
   return (
-    <Suspense fallback={<Loader />}>
-      <CommonRoutes>
-        {routes.map((route: RouteInterface, key: number) => (
-          <Route key={key} path={route.path} Component={route.Component} />
-        ))}
-        <Route path={RouteEnum.NOT_FOUND} Component={NotFoundPage} />
-      </CommonRoutes>
-    </Suspense>
+    <CommonRoutes>
+      {routes.map((route: RouteInterface, key: number) => (
+        <Route key={key} path={route.path} Component={route.Component} />
+      ))}
+      <Route path={RouteEnum.NOT_FOUND} Component={NotFoundPage} />
+    </CommonRoutes>
   );
 };
 
