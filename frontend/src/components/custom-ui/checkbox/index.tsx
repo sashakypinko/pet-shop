@@ -29,9 +29,9 @@ const CheckedIcon = styled(Icon)(() => ({
     height: 24,
     backgroundImage:
       'url("data:image/svg+xml;charset=utf-8,%3Csvg' +
-      " xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'" +
-      " fill='none'%3E%3Cpath d='M17 1L6 12L1 7' stroke='%23fff'" +
-      " stroke-width='2' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E\")",
+      ' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 18 18\'' +
+      ' fill=\'none\'%3E%3Cpath d=\'M17 1L6 12L1 7\' stroke=\'%23fff\'' +
+      ' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' /%3E%3C/svg%3E")',
     content: '""',
   },
   'input:hover ~ &': {
