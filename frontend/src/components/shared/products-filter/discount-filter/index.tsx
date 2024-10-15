@@ -14,6 +14,7 @@ const DiscountFilter = ({ value, onChange }: Props): ReactElement => {
 
   return (
     <FormControlLabel
+      sx={{ ml: 0 }}
       slotProps={{ typography: { variant: 'subtitle1', fontWeight: 600 } }}
       control={<Checkbox checked={value} onChange={handleChange} />}
       label="Discounted items"

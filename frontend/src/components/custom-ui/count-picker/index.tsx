@@ -3,6 +3,7 @@ import { Box, IconButton, styled, Typography } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 
 const CountPickerBox = styled(Box)(({ theme }) => ({
+  width: 'fit-content',
   display: 'flex',
   alignItems: 'center',
   border: '1px solid',

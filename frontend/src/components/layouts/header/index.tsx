@@ -134,7 +134,7 @@ const Header = (): ReactElement => {
         </Link>
       </Box>
       {!isMobile && <NavbarDesktop links={navLinks} page={page} onPageChange={handlePageChange} />}
-      <Box>
+      <Box sx={{ mr: 2 }}>
         <IconButton onClick={handleCartClick}>
           <Badge
             anchorOrigin={{

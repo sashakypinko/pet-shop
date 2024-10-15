@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from '../../../../store/cart/slice';
 import { selectCart } from '../../../../store/selectors';
 import ProductPrice from '../../product-price';
+import useIsMobile from '../../../../hooks/use-is-mobile.hook';
 
 const AddButton = styled(Button)({
   position: 'absolute',
@@ -50,6 +51,7 @@ interface Props {
 const ProductItem = ({ product, onAdd }: Props): ReactElement => {
   const [hovered, setHovered] = useState<boolean>(false);
   const { cartItems } = useSelector(selectCart);
+  const isMobile = useIsMobile();
 
   const addedToCart = useMemo<boolean>(() => {
     return !!cartItems.find((item) => item.product.id === product.id);
@@ -62,7 +64,7 @@ const ProductItem = ({ product, onAdd }: Props): ReactElement => {
           <Image src={generateImageUrl(product.image)} alt={product.title} />
         </StyledLink>
         <DiscountChip sx={{ position: 'absolute', right: 12, top: 12 }} product={product} />
-        {hovered && (
+        {(isMobile || hovered) && (
           <AddButton
             color={addedToCart ? 'inherit' : 'primary'}
             variant="contained"

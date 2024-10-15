@@ -9,7 +9,7 @@ const lightTheme = createTheme({
       fontWeight: 700,
       lineHeight: 1.2,
       '@media (max-width:600px)': {
-        fontSize: '3rem',
+        fontSize: '2rem',
       },
     },
     h2: {
@@ -17,7 +17,7 @@ const lightTheme = createTheme({
       fontWeight: 700,
       lineHeight: 1.3,
       '@media (max-width:600px)': {
-        fontSize: '2rem',
+        fontSize: '1.5rem',
       },
     },
     h3: {
