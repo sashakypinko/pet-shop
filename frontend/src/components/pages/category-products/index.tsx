@@ -7,8 +7,9 @@ import { RouteEnum } from '../../../routes/enums/route.enum';
 import { useParams } from 'react-router-dom';
 import { setSelectedCategory } from '../../../store/categories/slice';
 import Loader from '../../custom-ui/loader';
+import ErrorFallback from '../../shared/error-fallback';
 
-const CategoryProductsPage = (): ReactElement | null => {
+const CategoryProductsPage = (): ReactElement => {
   const { id: categoryId } = useParams();
   const dispatch = useDispatch();
   const { selectedCategory, loading } = useSelector(selectCategories);
@@ -32,8 +33,7 @@ const CategoryProductsPage = (): ReactElement | null => {
   }
 
   if (!selectedCategory) {
-    // TODO: replace with error component
-    return null;
+    return <ErrorFallback />;
   }
 
   return (

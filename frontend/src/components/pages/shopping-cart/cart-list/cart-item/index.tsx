@@ -5,6 +5,8 @@ import { generateImageUrl } from '../../../../../helpers/url-helper';
 import { CloseRounded } from '@mui/icons-material';
 import CountPicker from '../../../../custom-ui/count-picker';
 import ProductPrice from '../../../../shared/product-price';
+import { generatePath, Link } from 'react-router-dom';
+import { RouteEnum } from '../../../../../routes/enums/route.enum';
 
 const ItemCard = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -30,6 +32,10 @@ const ItemDetails = styled(Box)({
   width: '100%',
 });
 
+const ProductLink = styled(Link)({
+  display: 'flex',
+});
+
 interface Props {
   item: ICartItem;
   onUpdate: (cartItem: ICartItem) => void;
@@ -39,7 +45,9 @@ interface Props {
 const CartItem = ({ item, onUpdate, onRemove }: Props): ReactElement => {
   return (
     <ItemCard>
-      <Image src={generateImageUrl(item.product.image)} alt={item.product.title} />
+      <ProductLink to={generatePath(RouteEnum.PRODUCT_DETAILS, { id: item.product.id.toString() })}>
+        <Image src={generateImageUrl(item.product.image)} alt={item.product.title} />
+      </ProductLink>
       <ItemDetails>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="subtitle1">{item.product.title}</Typography>

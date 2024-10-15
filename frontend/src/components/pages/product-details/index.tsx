@@ -12,6 +12,8 @@ import Button from '../../custom-ui/button';
 import { generateImageUrl } from '../../../helpers/url-helper';
 import { addCartItem } from '../../../store/cart/slice';
 import ProductDetailsSkeleton from './skeleton';
+import { shortenString } from '../../../helpers/string-helper';
+import ServerError from '../../shared/error-fallback';
 
 const Image = styled('img')({
   width: '100%',
@@ -20,8 +22,15 @@ const Image = styled('img')({
   aspectRatio: '1 / 1',
 });
 
-const ProductDetailsPage = (): ReactElement | null => {
+const ExpandDescriptionButton = styled(Typography)({
+  fontWeight: 500,
+  cursor: 'pointer',
+  textDecoration: 'underline',
+});
+
+const ProductDetailsPage = (): ReactElement => {
   const [count, setCount] = useState<number>(1);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState<boolean>(false);
   const { id: productId } = useParams();
   const dispatch = useDispatch();
   const { selectedProduct, loading: productsLoading } = useSelector(selectProducts);
@@ -63,8 +72,7 @@ const ProductDetailsPage = (): ReactElement | null => {
   }
 
   if (!selectedProduct) {
-    // TODO: replace with error component
-    return null;
+    return <ServerError />;
   }
 
   return (
@@ -95,7 +103,12 @@ const ProductDetailsPage = (): ReactElement | null => {
             </Box>
             <Box display="flex" flexDirection="column" gap={2}>
               <Typography variant="subtitle1">Description</Typography>
-              <Typography>{selectedProduct.description}</Typography>
+              <Typography>
+                {isDescriptionExpanded ? selectedProduct.description : shortenString(selectedProduct.description, 500)}
+              </Typography>
+              <ExpandDescriptionButton onClick={() => setIsDescriptionExpanded(true)}>
+                Read {isDescriptionExpanded ? 'less' : 'more'}
+              </ExpandDescriptionButton>
             </Box>
           </Box>
         </Grid>
