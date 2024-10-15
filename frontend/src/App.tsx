@@ -15,6 +15,7 @@ import '@fontsource/montserrat/400.css';
 import '@fontsource/montserrat/500.css';
 import '@fontsource/montserrat/600.css';
 import '@fontsource/montserrat/700.css';
+import ScrollTop from './components/utils/scroll-top';
 
 const App = (): ReactElement => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const App = (): ReactElement => {
           <SnackbarProvider>
             <CssBaseline/>
             <Router>
+              <ScrollTop />
               <Header/>
               <Container maxWidth="xl">
                 <Routes/>

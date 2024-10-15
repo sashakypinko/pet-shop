@@ -8,6 +8,7 @@ interface StyledLinkProps {
 }
 
 const StyledLink = styled(Link)<StyledLinkProps>(({ theme, disabled }) => ({
+  width: 'fit-content',
   border: '1px solid',
   borderColor: theme.palette.text.disabled,
   borderRadius: 6,

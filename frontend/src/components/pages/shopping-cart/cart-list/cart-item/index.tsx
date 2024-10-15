@@ -10,9 +10,14 @@ import { RouteEnum } from '../../../../../routes/enums/route.enum';
 
 const ItemCard = styled(Box)(({ theme }) => ({
   display: 'flex',
+  flexDirection: 'row',
   borderRadius: 12,
   border: '1px solid',
   borderColor: theme.palette.text.disabled,
+
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column',
+  },
 }));
 
 const Image = styled('img')(({ theme }) => ({
@@ -22,19 +27,38 @@ const Image = styled('img')(({ theme }) => ({
   height: 180,
   borderRight: '1px solid',
   borderColor: theme.palette.text.disabled,
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    height: 'auto',
+    borderRight: 'none',
+    borderRadius: 12,
+  },
 }));
 
 const ItemDetails = styled(Box)({
+  width: '100%',
   padding: 32,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  width: '100%',
+  gap: 8,
 });
 
 const ProductLink = styled(Link)({
   display: 'flex',
 });
+
+const CountContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  gap: 32,
+
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column-reverse',
+    gap: 16,
+  },
+}));
 
 interface Props {
   item: ICartItem;
@@ -55,13 +79,13 @@ const CartItem = ({ item, onUpdate, onRemove }: Props): ReactElement => {
             <CloseRounded />
           </IconButton>
         </Box>
-        <Box display="flex" gap={4}>
+        <CountContainer>
           <CountPicker value={item.count} max={10} onChange={(count) => onUpdate({ ...item, count })} />
           <ProductPrice
             price={item.product.price * item.count}
             discountPrice={item.product.discont_price ? item.product.discont_price * item.count : null}
           />
-        </Box>
+        </CountContainer>
       </ItemDetails>
     </ItemCard>
   );

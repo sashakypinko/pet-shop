@@ -15,7 +15,7 @@ const SectionContainer = styled(Box)({
 const Image = styled('img')({
   width: '100%',
   position: 'relative',
-  bottom: -42,
+  bottom: -40,
 });
 
 const DiscountSection = (): ReactElement => {

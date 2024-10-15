@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useMemo, useState } from 'react';
 import ContainerWithBreadcrumbs from '../../custom-ui/container-with-breadcrumbs';
 import { RouteEnum } from '../../../routes/enums/route.enum';
 import { setSelectedProduct } from '../../../store/products/slice';
-import { generatePath, useParams } from 'react-router-dom';
+import { generatePath, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategories, selectProducts } from '../../../store/selectors';
 import { Box, Grid, styled, Typography, useTheme } from '@mui/material';
@@ -14,6 +14,8 @@ import { addCartItem } from '../../../store/cart/slice';
 import ProductDetailsSkeleton from './skeleton';
 import { shortenString } from '../../../helpers/string-helper';
 import ServerError from '../../shared/error-fallback';
+import useIsMobile from '../../../hooks/use-is-mobile.hook';
+import { Add } from '@mui/icons-material';
 
 const Image = styled('img')({
   width: '100%',
@@ -31,12 +33,14 @@ const ExpandDescriptionButton = styled(Typography)({
 const ProductDetailsPage = (): ReactElement => {
   const [count, setCount] = useState<number>(1);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState<boolean>(false);
+
   const { id: productId } = useParams();
-  const dispatch = useDispatch();
   const { selectedProduct, loading: productsLoading } = useSelector(selectProducts);
   const { selectedCategory, loading: categoriesLoading } = useSelector(selectCategories);
-
+  const dispatch = useDispatch();
+  const isMobile = useIsMobile();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (productId) {
@@ -53,6 +57,8 @@ const ProductDetailsPage = (): ReactElement => {
         count,
       }),
     );
+
+    navigate(RouteEnum.SHOPPING_CART);
   };
 
   const breadcrumbLinks = useMemo(() => {
@@ -95,10 +101,10 @@ const ProductDetailsPage = (): ReactElement => {
                 </>
               )}
             </Box>
-            <Box display="flex" gap={4}>
+            <Box display="flex" gap={isMobile ? 1 : 4}>
               <CountPicker value={count} min={1} max={10} onChange={setCount} />
               <Button variant="contained" onClick={handleAddToCart} fullWidth>
-                Add to cart
+                {isMobile ? <Add /> : 'Add to cart'}
               </Button>
             </Box>
             <Box display="flex" flexDirection="column" gap={2}>
@@ -106,7 +112,7 @@ const ProductDetailsPage = (): ReactElement => {
               <Typography>
                 {isDescriptionExpanded ? selectedProduct.description : shortenString(selectedProduct.description, 500)}
               </Typography>
-              <ExpandDescriptionButton onClick={() => setIsDescriptionExpanded(true)}>
+              <ExpandDescriptionButton onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}>
                 Read {isDescriptionExpanded ? 'less' : 'more'}
               </ExpandDescriptionButton>
             </Box>
