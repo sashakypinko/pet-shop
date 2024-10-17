@@ -1,11 +1,12 @@
-import { ReactElement } from 'react';
+import { ReactElement, useMemo } from 'react';
 import { Box, styled } from '@mui/material';
-import { ProductFilter, PriceFilter as PriceFilterType } from './types';
+import { PriceFilter as PriceFilterType, ProductFilter } from './types';
 import PriceFilter from './price-filter';
 import DiscountFilter from './discount-filter';
 import Sorting from './sorting';
 import SortOptionsEnum from '../../../enums/sort-options.enum';
 import useIsMobile from '../../../hooks/use-is-mobile.hook';
+import Button from '../../custom-ui/button';
 
 const FilterContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -22,20 +23,25 @@ const FilterContainer = styled(Box)(({ theme }) => ({
 
 interface Props {
   filter: ProductFilter;
-  onFilterChange: (newFilter: ProductFilter) => void;
+  onChange: (newFilter: ProductFilter) => void;
+  onClear: () => void;
   withPrice?: boolean;
   withDiscount?: boolean;
   withSort?: boolean;
 }
 
 const ProductsFilter = (props: Props): ReactElement => {
-  const { filter, onFilterChange, withPrice = true, withDiscount = true, withSort = true } = props;
+  const { filter, onChange, onClear, withPrice = true, withDiscount = true, withSort = true } = props;
 
   const isMobile = useIsMobile();
 
   const handleChange = function <T>(value: T, field: string): void {
-    onFilterChange({ ...filter, [field]: value });
+    onChange({ ...filter, [field]: value });
   };
+
+  const isDirty = useMemo<boolean>(() => {
+    return !!(filter.discounted || filter.sort !== SortOptionsEnum.DEFAULT || filter.price?.from || filter.price?.to);
+  }, [filter]);
 
   return (
     <FilterContainer
@@ -54,6 +60,19 @@ const ProductsFilter = (props: Props): ReactElement => {
         />
       )}
       {withSort && <Sorting value={filter.sort} onChange={(value) => handleChange<SortOptionsEnum>(value, 'sort')} />}
+      {isDirty && (
+        <Button
+          sx={{
+            padding: '4px 24px',
+            fontSize: 17,
+          }}
+          variant="outlined"
+          color="inherit"
+          onClick={onClear}
+        >
+          Clear
+        </Button>
+      )}
     </FilterContainer>
   );
 };

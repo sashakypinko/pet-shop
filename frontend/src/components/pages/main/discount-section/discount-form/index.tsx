@@ -3,8 +3,6 @@ import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import TextField from '../../../../custom-ui/text-field';
 import Button from '../../../../custom-ui/button';
-import { OrderApi } from '../../../../../services/api/order';
-import { IOrder } from '../../../../../services/api/order/dto/order.dto';
 import useSnackbar from '../../../../custom-ui/snackbar/hooks/use-snackbar.hook';
 import { Box, styled, Typography } from '@mui/material';
 import { GetDiscountRequestDto } from '../../../../../services/api/discount/dto/get-discount-request.dto';

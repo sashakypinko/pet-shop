@@ -25,6 +25,7 @@ const categoriesSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setSelectedCategory: (state: CategoriesState, action: PayloadAction<number>) => {
       state.selectedCategory = null;
       state.loading = true;

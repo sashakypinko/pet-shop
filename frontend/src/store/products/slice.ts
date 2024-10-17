@@ -2,6 +2,17 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../services/api/product/dto/product.dto';
 import { ProductsState } from './types';
 
+const addFinalPriceGetter = (product: IProduct): IProduct => {
+  Object.defineProperty(product, 'finalPrice', {
+    get() {
+      return product.discont_price ?? product.price ?? 0;
+    },
+    enumerable: true,
+  });
+
+  return product;
+};
+
 const initialState: ProductsState = {
   products: [],
   selectedProduct: null,
@@ -19,12 +30,13 @@ const productsSlice = createSlice({
     },
     getProductsSuccess: (state: ProductsState, { payload: products }: PayloadAction<IProduct[]>) => {
       state.loading = false;
-      state.products = products;
+      state.products = products.map(addFinalPriceGetter);
     },
     getProductsError: (state: ProductsState, { payload: error }: PayloadAction<any>) => {
       state.loading = false;
       state.error = error;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setSelectedProduct: (state: ProductsState, action: PayloadAction<number>) => {
       state.selectedProduct = null;
       state.loading = true;
@@ -32,7 +44,7 @@ const productsSlice = createSlice({
     },
     setSelectedProductSuccess: (state: ProductsState, { payload: product }: PayloadAction<IProduct>) => {
       state.loading = false;
-      state.selectedProduct = product;
+      state.selectedProduct = addFinalPriceGetter(product);
     },
     setSelectedProductError: (state: ProductsState, { payload: error }: PayloadAction<any>) => {
       state.loading = false;

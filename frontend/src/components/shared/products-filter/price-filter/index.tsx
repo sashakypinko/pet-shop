@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, ReactElement, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { PriceFilter as PriceFilterType } from '../types';
 import Input from '../../../custom-ui/input';
@@ -8,8 +8,10 @@ interface Props {
   onChange: (newValue: PriceFilterType) => void;
 }
 
-const PriceFilter = ({ value = { from: '', to: '' }, onChange }: Props): ReactElement => {
-  const [priceRange, setPriceRange] = useState<PriceFilterType>(value);
+const defaultPriceRange = { from: '', to: '' };
+
+const PriceFilter = ({ value, onChange }: Props): ReactElement => {
+  const [priceRange, setPriceRange] = useState<PriceFilterType>(defaultPriceRange);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string): void => {
     setPriceRange({ ...priceRange, [field]: e.target.value });
@@ -20,10 +22,16 @@ const PriceFilter = ({ value = { from: '', to: '' }, onChange }: Props): ReactEl
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.code === 'Enter') {
+    if (e.keyCode === 13) {
       handleApply();
     }
   };
+
+  useEffect(() => {
+    if (!value) {
+      setPriceRange(defaultPriceRange);
+    }
+  }, [value]);
 
   return (
     <Box display="flex" alignItems="center" gap={2}>

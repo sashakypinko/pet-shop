@@ -11,7 +11,7 @@ const initialState: CartState = {
 
 const calculateTotalAmount = (cartItems: ICartItem[]): number => {
   return cartItems.reduce((total, { product, count }) => {
-    return (product.discont_price || product.price) * count + total;
+    return product.finalPrice * count + total;
   }, 0);
 };
 
