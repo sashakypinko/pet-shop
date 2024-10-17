@@ -9,7 +9,7 @@ const addFinalPriceGetter = (product: IProduct): IProduct => {
     },
     enumerable: true,
   });
-  
+
   return product;
 };
 
@@ -36,6 +36,7 @@ const productsSlice = createSlice({
       state.loading = false;
       state.error = error;
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setSelectedProduct: (state: ProductsState, action: PayloadAction<number>) => {
       state.selectedProduct = null;
       state.loading = true;

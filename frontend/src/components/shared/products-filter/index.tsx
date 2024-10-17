@@ -1,6 +1,6 @@
-import {ReactElement, useMemo} from 'react';
-import {Box, styled} from '@mui/material';
-import {PriceFilter as PriceFilterType, ProductFilter} from './types';
+import { ReactElement, useMemo } from 'react';
+import { Box, styled } from '@mui/material';
+import { PriceFilter as PriceFilterType, ProductFilter } from './types';
 import PriceFilter from './price-filter';
 import DiscountFilter from './discount-filter';
 import Sorting from './sorting';
@@ -60,21 +60,19 @@ const ProductsFilter = (props: Props): ReactElement => {
         />
       )}
       {withSort && <Sorting value={filter.sort} onChange={(value) => handleChange<SortOptionsEnum>(value, 'sort')} />}
-      {
-        isDirty && (
-          <Button
-            sx={{
-              padding: '4px 24px',
-              fontSize: 17,
-            }}
-            variant="outlined"
-            color="inherit"
-            onClick={onClear}
-          >
-            Clear
-          </Button>
-        )
-      }
+      {isDirty && (
+        <Button
+          sx={{
+            padding: '4px 24px',
+            fontSize: 17,
+          }}
+          variant="outlined"
+          color="inherit"
+          onClick={onClear}
+        >
+          Clear
+        </Button>
+      )}
     </FilterContainer>
   );
 };

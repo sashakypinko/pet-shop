@@ -1,4 +1,4 @@
-import {ChangeEvent, KeyboardEvent, ReactElement, useEffect, useState} from 'react';
+import { ChangeEvent, KeyboardEvent, ReactElement, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { PriceFilter as PriceFilterType } from '../types';
 import Input from '../../../custom-ui/input';

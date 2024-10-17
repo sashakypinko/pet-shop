@@ -80,11 +80,11 @@ const ProductList = ({ categoryId, discounted, limit, withoutFiler }: Props): Re
   return (
     <>
       {!withoutFiler && (
-        <ProductsFilter 
+        <ProductsFilter
           filter={filter}
-          onChange={setFilter} 
+          onChange={setFilter}
           onClear={() => setFilter(defaultFilter)}
-          withDiscount={!discounted} 
+          withDiscount={!discounted}
         />
       )}
       {loading ? (
