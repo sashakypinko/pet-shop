@@ -5,7 +5,6 @@ import { Add, Remove } from '@mui/icons-material';
 const CountPickerBox = styled(Box)(({ theme }) => ({
   width: 'fit-content',
   display: 'flex',
-  alignItems: 'center',
   border: '1px solid',
   borderColor: theme.palette.text.disabled,
   borderRadius: 6,
@@ -20,10 +19,12 @@ const ChangeCountButton = styled(IconButton)(({ theme }) => ({
 }));
 
 const CountText = styled(Typography)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   fontSize: 20,
   fontWeight: 600,
   width: 96,
-  textAlign: 'center',
 });
 
 interface Props {
