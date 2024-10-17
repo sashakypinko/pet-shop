@@ -6,4 +6,5 @@ export interface IProduct {
   price: number;
   discont_price: number;
   description: string;
+  finalPrice: number;
 }

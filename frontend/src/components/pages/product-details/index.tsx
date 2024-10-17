@@ -91,7 +91,7 @@ const ProductDetailsPage = (): ReactElement => {
           <Box display="flex" flexDirection="column" gap={4}>
             <Typography variant="h3">{selectedProduct.title}</Typography>
             <Box display="flex" gap={2} alignItems="baseline">
-              <Typography variant="h2">${selectedProduct.discont_price}</Typography>
+              <Typography variant="h2">${selectedProduct.finalPrice}</Typography>
               {selectedProduct.discont_price && (
                 <>
                   <Typography variant="h3" color={theme.palette.text.secondary}>

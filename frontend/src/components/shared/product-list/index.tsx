@@ -45,11 +45,11 @@ const ProductList = ({ categoryId, discounted, limit, withoutFiler }: Props): Re
         return false;
       }
 
-      if (fromPrice !== null && product.price < fromPrice) {
+      if (fromPrice !== null && product.finalPrice < fromPrice) {
         return false;
       }
 
-      if (toPrice !== null && product.price > toPrice) {
+      if (toPrice !== null && product.finalPrice > toPrice) {
         return false;
       }
 
@@ -59,8 +59,8 @@ const ProductList = ({ categoryId, discounted, limit, withoutFiler }: Props): Re
     const sortMap: { [key in SortOptionsEnum]: (a: IProduct, b: IProduct) => number } = {
       [SortOptionsEnum.DEFAULT]: () => 0,
       [SortOptionsEnum.NEWEST]: (a, b) => a.id - b.id,
-      [SortOptionsEnum.PRICE_HIGH_TO_LOW]: (a, b) => (b.discont_price || b.price) - (a.discont_price || a.price),
-      [SortOptionsEnum.PRICE_LOW_TO_HIGH]: (a, b) => (a.discont_price || a.price) - (b.discont_price || b.price),
+      [SortOptionsEnum.PRICE_HIGH_TO_LOW]: (a, b) => b.finalPrice - a.finalPrice,
+      [SortOptionsEnum.PRICE_LOW_TO_HIGH]: (a, b) => a.finalPrice - b.finalPrice,
     };
 
     const sortedProducts = filteredProducts.sort(sortMap[sort] || (() => 0));
@@ -79,7 +79,14 @@ const ProductList = ({ categoryId, discounted, limit, withoutFiler }: Props): Re
 
   return (
     <>
-      {!withoutFiler && <ProductsFilter filter={filter} onFilterChange={setFilter} withDiscount={!discounted} />}
+      {!withoutFiler && (
+        <ProductsFilter 
+          filter={filter}
+          onChange={setFilter} 
+          onClear={() => setFilter(defaultFilter)}
+          withDiscount={!discounted} 
+        />
+      )}
       {loading ? (
         <ProductListSkeleton />
       ) : (
